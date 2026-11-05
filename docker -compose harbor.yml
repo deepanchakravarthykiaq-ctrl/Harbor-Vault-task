@@ -1,0 +1,37 @@
+  GNU nano 8.7.1                                                               docker-compose.yml                                                                        
+services:
+  log:
+    image: goharbor/harbor-log:v2.14.6
+    container_name: harbor-log
+    restart: always
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+    volumes:
+      - /var/log/harbor/:/var/log/docker/:z
+      - type: bind
+        source: ./common/config/log/logrotate.conf
+        target: /etc/logrotate.d/logrotate.conf
+      - type: bind
+        source: ./common/config/log/rsyslog_docker.conf
+        target: /etc/rsyslog.d/rsyslog_docker.conf
+    ports:
+      - 127.0.0.1:1514:10514
+    networks:
+      - harbor
+  registry:
+    image: goharbor/registry-photon:v2.14.6
+    container_name: registry
+    restart: always
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+                                                               [ File 'docker-compose.yml' is unwritable ]
+^G Help         ^O Write Out    ^F Where Is     ^K Cut          ^T Execute      ^C Location     M-U Undo        M-A Set Mark    M-] To Bracket  M-B Previous
+^X Exit         ^R Read File    ^\ Replace      ^U Paste        ^J Justify      ^/ Go To Line   M-E Redo        M-6 Copy        ^B Where Was    M-F Next
