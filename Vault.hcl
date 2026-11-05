@@ -1,8 +1,12 @@
-# Training policy: access only to the sample application secret.
-path "secret/data/myapp" {
-  capabilities = ["create", "read", "update", "delete"]
+ui = true
+
+storage "file" {
+  path = "/opt/vault/data"
 }
 
-path "secret/metadata/myapp" {
-  capabilities = ["read", "list"]
+listener "tcp" {
+  address = "127.0.0.1:8200"
+  tls_disable = 1
 }
+
+api_addr = "http://127.0.0.1:8200"
