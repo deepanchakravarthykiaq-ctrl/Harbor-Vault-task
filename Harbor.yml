@@ -1,0 +1,37 @@
+harbor.yml                                                                      M     
+  # remove files in _upload directories which exist for a period of time, default is one week.
+  age: 168h
+  # the interval of the purge operations
+  interval: 24h
+  dryrun: false
+
+# Cache layer configurations
+# If this feature enabled, harbor will cache the resource
+# `project/project_metadata/repository/artifact/manifest` in the redis
+# which can especially help to improve the performance of high concurrent
+# manifest pulling.
+# NOTICE
+# If you are deploying Harbor in HA mode, make sure that all the harbor
+# instances have the same behaviour, all with caching enabled or disabled,
+# otherwise it can lead to potential data inconsistency.
+cache:
+  # not enabled by default
+  enabled: false
+  # keep cache for one day by default
+  expire_hours: 24
+
+# Harbor core configurations
+# Uncomment to enable the following harbor core related configuration items.
+# core:
+#   # The provider for updating project quota(usage), there are 2 options, redis or db,
+#   # by default is implemented by db but you can switch the updation via redis which
+#   # can improve the performance of high concurrent pushing to the same project,
+#   # and reduce the database connections spike and occupies.
+#   # By redis will bring up some delay for quota usage updation for display, so only
+#   # suggest switch provider to redis if you were ran into the db connections spike around
+#   # the scenario of high concurrent pushing to same project, no improvement for other scenes.
+#   quota_update_provider: redis # Or db
+
+
+^G Help         ^O Write Out    ^F Where Is     ^K Cut          ^T Execute      ^C Location     M-U Undo        M-A Set Mark    M-] To Bracket  M-B Previous
+^X Exit         ^R Read File    ^\ Replace      ^U Paste        ^J Justify      ^/ Go To Line   M-E Redo        M-6 Copy        ^B Where Was    M-F Next
